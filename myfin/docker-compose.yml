@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  myfin-frontend:
+    build:
+      context: ./ # This should be the root of your frontend directory
+      dockerfile: Dockerfile.frontend
+    container_name: myfin-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - VITE_MYFIN_BASE_API_URL=http://myfin-api:8081
+    depends_on:
+      - myfin-api
+
+volumes:
+  db_data:
